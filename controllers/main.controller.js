@@ -15,8 +15,9 @@ exports.processExcel = function (req, res) {
             });
         }
         const xlsxStream = req.xlsxWriter.getOutputStream();
-        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        res.setHeader("Content-Disposition", "attachment; filename=test.xlsx"); 
+        // res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // res.setHeader("Content-Disposition", "attachment; filename=test.xlsx"); 
         xlsxStream.pipe(res);
     });
+    
 }

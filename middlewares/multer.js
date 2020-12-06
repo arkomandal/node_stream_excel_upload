@@ -1,5 +1,5 @@
 const multer = require('multer');
-const storageCustom = require('./customStorageEngine');
+const storageCustom = require('../controllers/customStorageEngine');
 
 // for custom multer storage
 let upload = multer({
