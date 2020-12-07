@@ -1,5 +1,7 @@
 const upload = require('../middlewares/multer').upload;
 const XLSXWriteStream = require('xlsx-write-stream');
+const EventEmitter = require('events');
+global.eventEmitter = new EventEmitter();
 
 exports.processExcel = function (req, res) {
     req.xlsxWriter = new XLSXWriteStream();
@@ -14,10 +16,9 @@ exports.processExcel = function (req, res) {
                 message: err.message
             });
         }
-        const xlsxStream = req.xlsxWriter.getOutputStream();
-        // res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        // res.setHeader("Content-Disposition", "attachment; filename=test.xlsx"); 
-        xlsxStream.pipe(res);
+        global.eventEmitter.on('process_completed', async (data) => {
+            res.send('process completed');
+        });
     });
     
 }

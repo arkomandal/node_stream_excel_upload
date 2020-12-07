@@ -11,7 +11,7 @@ function getTransformObject() {
             
             this.records.push(chunk);
             // batch processing of records
-            if (this.records.length == 10) {
+            if (this.records.length == 100) {
                 saveDataToDB(this.records)
                     .then((data) => {
                         // data is modified data
@@ -38,10 +38,12 @@ function getTransformObject() {
                         })
                         this.records = [];
                         console.log('done processing')
+                        global.eventEmitter.emit(`process_completed`, null);
                         done();
                     });
             } else {
                 console.log('done processing')
+                global.eventEmitter.emit(`process_completed`, null);
                 done();
             }
         }
